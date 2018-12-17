@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { EngineService } from './engine.service';
 import { ConfigProvider } from '../../config/config.service';
+import { Observable } from 'rxjs';
 
 // this service is just to expose some methods & observables from the engine
 
@@ -14,8 +15,8 @@ export class ConnectionService {
     private readonly config: ConfigProvider
   ) { }
 
-  public connect() {
-    this.engine.connect(this.config.apiKey);
+  public connect(): Observable<boolean> {
+    return this.engine.connect(this.config.apiKey);
   }
 
   public disconnect() {

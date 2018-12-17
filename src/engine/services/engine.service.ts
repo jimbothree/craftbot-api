@@ -4,7 +4,6 @@ import { Response } from '../responses/response.model';
 import { Event as SocketEvent } from '../events/event.model';
 import { Request } from '../requests/request.model';
 import { SocketRequest } from '../requests/socket-request.model';
-import { ConfigProvider } from '../../config/config.service';
 import { Subject, BehaviorSubject, Observable } from 'rxjs';
 import { AuthenticateRequest } from '../requests/authenticate-request.model';
 import { RequestType } from '../requests/request-type.enum';
@@ -17,7 +16,7 @@ import { ConnectRequest } from '../requests/connect-request.model';
 import { ConnectEventPayload } from '../events/connect-event-payload.model';
 import { DisconnectEventPayload } from '../events/disconnect-event-payload.model';
 import { SendWhisperRequest } from '../requests/send-whisper-request.model';
-import { map } from 'rxjs/operators';
+import { map, skip } from 'rxjs/operators';
 import { SendMessageRequest } from '../requests/send-message-request.model';
 import { DisconnectRequest } from '../requests/disconnect-request.model';
 
@@ -26,7 +25,7 @@ export class EngineService {
   private apiKey: string;
 
   private readonly socketConfig: WebSocketSubjectConfig<Response | SocketEvent | SocketRequest> = {
-    url: 'wss://connect-bot.classic.blizzard.com/v1/rpc/chat',
+    url: 'wss://connect-bot.classic.blizzard.com/v1/rpc/chat/',
     closeObserver: { next: (event) => this.onSocketClosed(event) },
     openObserver: { next: (event) => this.onSocketOpened(event) }
   };
@@ -55,7 +54,7 @@ export class EngineService {
   private connectedSubject = new BehaviorSubject(false);
   public connected$ = this.connectedSubject.asObservable();
 
-  public connect(apiKey: string) {
+  public connect(apiKey: string): Observable<boolean> {
     this.apiKey = apiKey;
 
     this.socket = webSocket(this.socketConfig);
@@ -64,6 +63,8 @@ export class EngineService {
       (err) => this.onSocketError(err),
       () => this.onSocketCompleted()
     );
+
+    return this.connected$.pipe(skip(1));
   }
 
   public disconnect() {
@@ -96,6 +97,7 @@ export class EngineService {
   }
 
   private onAuthenticated(): void {
+    this.connectedSubject.next(true);
     this.send(new ConnectRequest(this.nextRequestId), new Subject());
   }
 
@@ -109,6 +111,7 @@ export class EngineService {
 
   private onSocketClosed(event: CloseEvent): void {
     console.log('Socket closed');
+    this.connectedSubject.next(false);
   }
 
   private onSocketError(err: any): void {
