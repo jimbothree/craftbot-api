@@ -94,3 +94,7 @@ typings/
 .history
 
 # End of https://www.gitignore.io/api/node,visualstudiocode
+
+### Application Specific ###
+config.json
+src/graphql.schema.ts
