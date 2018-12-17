@@ -1,0 +1,19 @@
+type Configuration {
+  API_KEY: String
+  DEBUG: Boolean
+  LOG_TO_FILE: Boolean
+}
+
+type Query {
+  configuration: Configuration
+}
+
+type Mutation {
+  setConfiguration(config: ConfigurationInput!): Configuration
+}
+
+input ConfigurationInput {
+  API_KEY: String
+  DEBUG: Boolean
+  LOG_TO_FILE: Boolean
+}

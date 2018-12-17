@@ -1,11 +1,22 @@
 import { Module } from '@nestjs/common';
-import { BattleNetClassicLibModule } from 'battle-net-classic-lib';
+import { EngineService } from './services/engine.service';
+import { UserService } from './services/user.service';
+import { MessageService } from './services/message.service';
+import { ConnectionService } from './services/connection.service';
 
 @Module({
-  imports: [
-    BattleNetClassicLibModule
-  ],
+  imports: [],
   controllers: [],
-  providers: []
+  providers: [
+    EngineService,
+    UserService,
+    MessageService,
+    ConnectionService
+  ],
+  exports: [
+    UserService,
+    MessageService,
+    ConnectionService
+  ]
 })
 export class EngineModule { }

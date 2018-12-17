@@ -14,7 +14,9 @@
     "arrow-parens": false,
     "object-literal-sort-keys": false,
     "trailing-comma": false,
-    "variable-name": [true, "ban-keywords", "check-format", "allow-snake-case", "allow-leading-underscore"]
+    "variable-name": [true, "ban-keywords", "check-format", "allow-snake-case", "allow-leading-underscore"],
+    "no-console": false,
+    "array-type": [true, "array"]
   },
   "rulesDirectory": []
 }

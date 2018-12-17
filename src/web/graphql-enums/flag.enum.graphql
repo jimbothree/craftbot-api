@@ -1,0 +1,7 @@
+enum Flag {
+  ADMIN
+  MODERATOR
+  SPEAKER
+  MUTEGLOBAL
+  MUTEWHISPER
+}
