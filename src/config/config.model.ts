@@ -1,3 +1,5 @@
 export interface Config {
-  [prop: string]: string;
+  API_KEY: string;
+  DEBUG: boolean;
+  LOG_TO_FILE: boolean;
 }

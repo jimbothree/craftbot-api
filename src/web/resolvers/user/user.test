@@ -1,9 +1,0 @@
-type User {
-  id: Number!
-  name: String!
-  flags: [Flag]!
-}
-
-type Query {
-
-}
