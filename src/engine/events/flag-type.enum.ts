@@ -4,9 +4,9 @@
  * @enum {string}
  */
 export enum FlagType {
-  Admin = 'admin',
-  Moderator = 'moderator',
-  Speaker = 'speaker',
-  MuteGlobal = 'muteGlobal',
-  MuteWhisper = 'muteWhisper'
+  Admin = 'ADMIN',
+  Moderator = 'MODERATOR',
+  Speaker = 'SPEAKER',
+  MuteGlobal = 'MUTEGLOBAL',
+  MuteWhisper = 'MUTEWHISPER'
 }

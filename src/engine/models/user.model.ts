@@ -1,7 +1,6 @@
 import { FlagType } from '../events/flag-type.enum';
 import { AttributeType } from '../events/attribute-type.enum';
 import { UserUpdateEventPayload } from '../events/user-update-event-payload.model';
-import { Flag } from '../enums/flag.enum';
 
 export class User {
   private _flags: FlagType[] = [];
@@ -15,8 +14,8 @@ export class User {
     return this._id;
   }
 
-  public get flags(): Flag[] {
-    return this._flags.map(flag => this.flagTypeToFlag(flag));
+  public get flags(): FlagType[] {
+    return this._flags;
   }
 
   constructor(
@@ -36,21 +35,11 @@ export class User {
     }
 
     if (typeof payload.flag !== 'undefined' && payload.flag !== null) {
-      this._flags = payload.flag;
+      this._flags = payload.flag.map(flag => flag.toUpperCase() as FlagType);
     }
   }
 
   private setAttribute(attribute: AttributeType, value: string): void {
     this._attributes[attribute] = value;
-  }
-
-  private flagTypeToFlag(flagType: FlagType): Flag {
-    switch (flagType) {
-      case FlagType.Admin: return Flag.Admin;
-      case FlagType.Moderator: return Flag.Moderator;
-      case FlagType.MuteGlobal: return Flag.MuteGlobal;
-      case FlagType.MuteWhisper: return Flag.MuteWhisper;
-      case FlagType.Speaker: return Flag.Speaker;
-    }
   }
 }

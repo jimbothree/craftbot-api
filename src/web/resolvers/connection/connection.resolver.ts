@@ -11,7 +11,6 @@ export class ConnectionResolver {
 
   @Mutation()
   connect(): Observable<boolean> {
-    console.log(`Lets try to connect!`);
     return this.connection.connect();
   }
 }

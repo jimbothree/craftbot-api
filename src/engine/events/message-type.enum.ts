@@ -4,9 +4,9 @@
  * @enum {string}
  */
 export enum MessageType {
-  Whisper = 'whisper',
-  Channel = 'channel',
-  ServerInfo = 'serverInfo',
-  ServerError = 'serverError',
-  Emote = 'emote'
+  Whisper = 'WHISPER',
+  Channel = 'CHANNEL',
+  ServerInfo = 'SERVERINFO',
+  ServerError = 'SERVERERROR',
+  Emote = 'EMOTE'
 }
